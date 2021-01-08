@@ -1,7 +1,6 @@
 const gcm = require("node-gcm")
 const notification = require('../models/notification.js');
 const student = require("../models/student.js");
-const notification = require('../models/student.js');
 const sender = new gcm.Sender('AAAA80CI5cw:APA91bEf9BPKt1OGLKdR6AHQNI2aYiVp6wf-8cRHEcDX9vmI3QBpoBohsA-JsClLeCwhPN2ZeO9RUWtsJJXLiYxevATWvdTJ_QKQ3Z3vPLf_Id6elwBCpuAhg71vPNyuRKjRAeeAZHDz')
 function notify(req,res,err){
     const message = new gcm.Message({
