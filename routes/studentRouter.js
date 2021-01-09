@@ -9,3 +9,5 @@ router.post('/login',login);
 router.post('/signup',signup);
 router.get('/register/:emailId/:eventName',register);
 router.get('/logout/:emailId',logout);
+
+module.exports = router;

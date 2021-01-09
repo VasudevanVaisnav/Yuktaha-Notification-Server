@@ -3,3 +3,5 @@ const router = express.Router();
 const notify = require('./../handlers/notify');
 
 router.post('/notify',notify);
+
+module.exports = router;

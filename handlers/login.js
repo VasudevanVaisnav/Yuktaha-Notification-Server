@@ -3,15 +3,18 @@ const bcrypt = require('bcrypt');
 const mongoose = require("mongoose")
 function login(req,res,next)
 {
-  student.findOneAndUpdate({emailId:req.body.emailId}).exec().then(result=>{
+  student.findOne({emailId:req.body.emailId}).exec().then(result=>{
       console.log("login");
-    console.log(result);
-    if (result.length==1){
-        bcrypt.compare(req.body.password,result[0].password,(err,verdict)=>{
+      console.log(result);
+    if (result!=null){
+        bcrypt.compare(req.body.password,result.password,(err,verdict)=>{
             if (!err && verdict==true){
-                result.notifToken = req.body.token
-                res.status(200).json({"msg":"success",
-            'yukId':result.body.yukId})
+                student.findByIdAndUpdate(result.id,{notifToken:req.body.token},(errr,doc)=>{
+                    if(!errr){
+                        res.status(200).json({"msg":"success",
+                        'yukId':result.yukId})
+                    }
+                })
             }
             else if(!err){
                 res.status(201).json({"msg":"invalid password"})
