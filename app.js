@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyparser = require("body-parser");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const studentRouter = require('./routes/studentRouter')
 const notificationRouter = require('./routes/notificationRouter')
 

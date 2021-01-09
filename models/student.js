@@ -5,7 +5,7 @@ const studentSchema = mongoose.Schema({
     yukId : {type:String,required:true},
     notifToken : {type:String,required:true,default:"null"},
     events : [{
-        eventName : {type:String,required:true,unique:true}
+        eventName : {type:String,required:true}
     }]
 })
 module.exports = mongoose.model('student',studentSchema);

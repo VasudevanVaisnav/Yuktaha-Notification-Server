@@ -1,5 +1,5 @@
 const student = require('../models/student.js');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const mongoose = require("mongoose")
 function login(req,res,next)
 {

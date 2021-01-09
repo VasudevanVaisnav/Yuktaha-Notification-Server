@@ -1,19 +1,19 @@
 const student = require('../models/student.js');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const mongoose = require("mongoose")
-let cnt = 0
+
 
 function signup(req,res,next){
     console.log("signup");
     let YukID = 'yuk'
+    let cnt = 0
     let part = 202100
     student.find({}).exec().then((result)=>{
-        // cnt=result.length;
+        cnt=result.length;
+        part=part+cnt+1;
+        YukID=YukID+part;
         console.log(cnt);
     })
-    part=part+cnt+1;
-    cnt++;
-    YukID=YukID+part;
     student.find({emailId:req.body.emailId})
     .exec().then((result)=>{
         if (result.length==0){
@@ -35,7 +35,7 @@ function signup(req,res,next){
                                 'yukId':YukID
                             })
                         })
-                        .catch(err=>res.send(err))
+                        .catch(err=>console.log(err))
                     }
                 })
         }

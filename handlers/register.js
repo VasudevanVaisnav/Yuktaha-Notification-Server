@@ -4,17 +4,29 @@ function register(req,res,next){
     student.findOne({emailId:req.params.emailId},(err,doc)=>{
         if(!err)
         {
+            let flag = false
             doc.events.forEach(e => {
                 if(e.eventName===req.params.eventName)
                 {
-                    return res.status(500).json({"msg":"already registered"})
+                    flag = true;
                 }
             });
-            student.findOneAndUpdate({emailId:req.params.emailId},{$push:{events:{eventName:req.params.eventName}}},(err,result)=>{
-                if(!err){
-                    return res.status(200).json({"msg":"added"})
-                }
-            })
+            if(flag){
+                return res.status(200).json({"msg":"already added"})
+            }
+            else{
+                student.findOneAndUpdate({emailId:req.params.emailId},{$push:{events:{eventName:req.params.eventName}}},(errr,result)=>{
+                    if(!errr){
+                        return res.status(200).json({"msg":"added"})
+                    }
+                    else{
+                        console.log(errr);
+                    }
+                })
+            }
+        }
+        else{
+            console.log(err);
         }
     })
 }
