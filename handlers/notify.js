@@ -36,9 +36,16 @@ function notify(req,res,err){
             }
         }
         console.log(registrationTokens);
-        //send
+        sender.send(message, { registrationTokens: registrationTokens }, 10, function (err, response) {
+            if(err){
+                console.log(err);
+                return res.status(200).json({"msg":"not sent"})
+            }
+            else{
+                return res.status(200).json({"msg":"sent"})
+            }
+          });
     })
-    return res.status(200).json({"msg":"hmm"})
 }
 
 module.exports = notify;
