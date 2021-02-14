@@ -4,6 +4,7 @@ const bodyparser = require("body-parser");
 const bcrypt = require("bcryptjs");
 const studentRouter = require('./routes/studentRouter')
 const notificationRouter = require('./routes/notificationRouter')
+const dbRouter = require('./routes/dbRouter.js')
 
 
 const app = express();
@@ -51,6 +52,7 @@ app.use((req,res,next)=>{
 
 app.use('/student',studentRouter);
 app.use('/notify',notificationRouter);
+app.use('/db',dbRouter);
 
 // 404 route
 app.use((req,res,next)=>{

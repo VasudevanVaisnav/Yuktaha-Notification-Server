@@ -31,3 +31,5 @@ function login(req,res,next)
 }
 
 module.exports = login;
+
+//:3090/student/login
