@@ -11,4 +11,4 @@ function download(req,res,next){
         }
     });
 }
-module.exports = addElement
+module.exports = download

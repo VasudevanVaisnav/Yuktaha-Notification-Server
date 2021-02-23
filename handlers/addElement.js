@@ -5,6 +5,8 @@
 // type:"event"||"workshop",
 // name
 // eventId||workshopId
+// eventStartDate||workshopStartDate
+// eventEndDate||workshopEndDate
 const dbSchema = require('../models/db')
 function generateToken(){
     var newToken = "";
@@ -25,8 +27,16 @@ function addElement(req,res,next){
             let deptToken = generateToken();
             let objToken = generateToken();   
             let yukToken = generateToken();
-            // ---            
+            // ---
+            // dynamic selector strings
             let Id = req.body.type+"Id"
+            let StartDate = req.body.type+"StartDate"
+            let EndDate = req.body.type+"EndDate"
+            let arrString = `${req.body.dept}.${req.body.type}s.${req.body.type}sList`
+            let deptTokenString = `${req.body.dept}.${req.body.dept}Token`
+            let objTokenString = `${req.body.dept}.${req.body.type}sToken`
+            console.log(arrString,deptTokenString);
+            // ----
             let newObject = {
                 token:token,
                 name:req.body.name,
@@ -36,20 +46,20 @@ function addElement(req,res,next){
                 facultyCoordinator:req.body.facultyCoordinator,
                 generalRules:req.body.generalRules,
                 rounds:req.body.rounds,
-                eventStartDate:req.body.eventStartDate,
-                eventsEndDate:req.body.eventsEndDate
+                /*fees only for workshop*/
+                fees:req.body.type=='workshop'?req.body.fees:undefined,
+                [StartDate]:req.body[StartDate],
+                [EndDate]:req.body[EndDate]
             }
-            let arrString = `${req.body.dept}.${req.body.type}s.${req.body.type}sList`
-            let deptTokenString = `${req.body.dept}.${req.body.dept}Token`
-            let objTokenString = `${req.body.dept}.${req.body.type}sToken`
-            console.log(arrString,deptTokenString);
             dbSchema.updateOne({},{$set:{
                 "yukToken":yukToken,
                 [deptTokenString]:deptToken,
                 [objTokenString]:objToken},
-                $push:{[arrString]:newObject}},(err,doc)=>{
+                $set:{"[arrString].$[ele]":newObject}},{
+                    arrayFilters:[{ele:{[Id]:newObject[Id]}}]
+                },(err,doc)=>{
                     if(!err){
-                        return res.status(200).json({"msg":"updated"})
+                        return res.status(200).json({"msg":"updated","olddoc":doc})
                     }else{
                         return res.status(500).json({"msg":"error"})
                     }

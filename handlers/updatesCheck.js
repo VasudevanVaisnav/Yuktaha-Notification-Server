@@ -156,3 +156,4 @@ function updatesCheck(req,res,next){
         }
     })
 }
+module.exports = updatesCheck

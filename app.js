@@ -13,7 +13,7 @@ let dbConnectCounter = 0;
 
 function dbConnect(){
   // db connect
-  mongoose.connect("mongodb+srv://root:Vasu@213@cluster0.h6x2l.mongodb.net/yuktaha-notifications?retryWrites=true&w=majority"
+  mongoose.connect("mongodb+srv://root:Vasu@213@cluster0.h6x2l.mongodb.net/yuktaha-notifications?retryWrites=true&w=majority"/*,"mongodb://localhost:5000/yukta"*/
     ,{
       useNewUrlParser: true, 
       useUnifiedTopology: true,

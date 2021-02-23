@@ -1,5 +1,5 @@
 const dbSchema = require('../models/db')
-function download(req,res,next){
+function fetchElement(req,res,next){
     dbSchema.findOne({},(err,res1)=>{//use filter as objec id
         if(!err){
             console.log(res1);
@@ -11,4 +11,4 @@ function download(req,res,next){
         }
     });
 }
-module.exports = addElement
+module.exports = fetchElement

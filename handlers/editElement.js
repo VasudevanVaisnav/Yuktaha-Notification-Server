@@ -15,7 +15,7 @@ function generateToken(){
     console.log(newToken);
     return newToken;
 }
-function addElement(req,res,next){
+function editElement(req,res,next){
  dbSchema.findOne({},(err,doc)=>{
      if(!err)
      {
@@ -58,4 +58,4 @@ function addElement(req,res,next){
      }
  })
 }
-module.exports = addElement
+module.exports = editElement
